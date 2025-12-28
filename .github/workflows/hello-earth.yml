@@ -44,8 +44,15 @@ jobs:
           role-to-assume: arn:aws:iam::798920797034:role/GitHubDeployRole
           aws-region: us-east-1
 
+      - name: Ensure Deployment Bucket Exists
+        run: |
+          BUCKET_NAME=sam-deploy-798920797034-us-east-1
+          if ! aws s3api head-bucket --bucket $BUCKET_NAME 2>/dev/null; then
+            aws s3 mb s3://$BUCKET_NAME
+          fi
+
       - name: Build and Deploy Hello Earth
         run: |
           cd hello-earth
           sam build
-          sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name ${{ needs.setup.outputs.env_name }}-hello-earth --resolve-s3 --capabilities CAPABILITY_IAM
+          sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name ${{ needs.setup.outputs.env_name }}-hello-earth --s3-bucket sam-deploy-798920797034-us-east-1 --s3-prefix hello-earth --capabilities CAPABILITY_IAM
