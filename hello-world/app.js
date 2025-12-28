@@ -6,7 +6,7 @@ export const lambdaHandler = async (event, context) => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                message: "hello world", 
+                message: "hello world",
             })
         };
     } catch (err) {

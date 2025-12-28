@@ -31,7 +31,7 @@ jobs:
   deploy-hello-world:
     needs: setup
     runs-on: ubuntu-latest
-    environment: ${{ needs.setup.outputs.env_name }}
+    environment: ${{ needs.setup.outputs.env_name }}-hello-world
     steps:
       - uses: actions/checkout@v4
       
