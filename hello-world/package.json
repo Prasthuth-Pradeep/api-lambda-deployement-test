@@ -1,0 +1,14 @@
+{
+    "name": "hello-world",
+    "version": "1.0.0",
+    "type": "module",
+    "description": "hello world sample for AWS SAM",
+    "main": "app.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/AWS-Samples/aws-sam-hello-world.git"
+    },
+    "author": "SAM CLI",
+    "license": "MIT",
+    "dependencies": {}
+}
