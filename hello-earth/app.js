@@ -7,7 +7,7 @@ export const lambdaHandler = async (event, context) => {
             },
             body: JSON.stringify({
                 message: "hello earth",
-            })
+            }) 
         };
     } catch (err) {
         console.log(err);
