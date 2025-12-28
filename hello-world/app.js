@@ -12,7 +12,7 @@ export const lambdaHandler = async (event, context) => {
     } catch (err) {
         console.log(err);
         return {
-            statusCode: 500, 
+            statusCode: 500,
             headers: {
                 "Content-Type": "application/json"
             },
