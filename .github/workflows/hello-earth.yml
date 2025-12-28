@@ -14,8 +14,24 @@ permissions:
   contents: read
 
 jobs:
-  deploy-hello-earth:
+  setup:
     runs-on: ubuntu-latest
+    outputs:
+      env_name: ${{ steps.env.outputs.env_name }}
+    steps:
+      - name: Set Environment Name
+        id: env
+        run: |
+          if [[ $GITHUB_REF_NAME == 'main' ]]; then
+            echo "env_name=prod" >> "$GITHUB_OUTPUT"
+          else
+            echo "env_name=$GITHUB_REF_NAME" >> "$GITHUB_OUTPUT"
+          fi
+
+  deploy-hello-earth:
+    needs: setup
+    runs-on: ubuntu-latest
+    environment: ${{ needs.setup.outputs.env_name }}
     steps:
       - uses: actions/checkout@v4
       
@@ -28,16 +44,8 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Set Environment
-        run: |
-          if [[ $GITHUB_REF_NAME == 'main' ]]; then
-            echo "ENV=prod" >> $GITHUB_ENV
-          else
-            echo "ENV=$GITHUB_REF_NAME" >> $GITHUB_ENV
-          fi
-
       - name: Build and Deploy Hello Earth
         run: |
           cd hello-earth
           sam build
-          sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name ${{ env.ENV }}-hello-earth --resolve-s3 --capabilities CAPABILITY_IAM
+          sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name ${{ needs.setup.outputs.env_name }}-hello-earth --resolve-s3 --capabilities CAPABILITY_IAM
