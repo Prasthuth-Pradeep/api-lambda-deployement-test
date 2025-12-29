@@ -47,3 +47,36 @@ export const lambdaHandler = async (event, context) => {
         };
     }
 };
+
+export const postHandler = async (event, context) => {
+    try {
+        let body = {};
+        if (event.body) {
+            body = JSON.parse(event.body);
+        }
+
+        console.log("Received POST request with body:", body);
+
+        return {
+            statusCode: 200,
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                message: "Data received!",
+                input: body
+            })
+        };
+    } catch (err) {
+        console.error("Error processing POST request:", err);
+        return {
+            statusCode: 500,
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                message: "Internal Server Error"
+            })
+        };
+    }
+};
