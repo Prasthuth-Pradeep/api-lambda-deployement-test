@@ -50,12 +50,11 @@ export const lambdaHandler = async (event, context) => {
 
 export const postHandler = async (event, context) => {
     try {
-        let body = {};
-        if (event.body) {
-            body = JSON.parse(event.body);
-        }
+        const body = JSON.parse(event.body);
 
         console.log("Received POST request with body:", body);
+        console.log("Received Headers:", event.headers);
+        console.log("Lambda Context:", context);
 
         return {
             statusCode: 200,
