@@ -31,6 +31,22 @@ Resources:
             Path: /hello
             Method: get
 
+  HelloWorldPostFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: .
+      Handler: app.postHandler
+      Runtime: nodejs22.x
+      Architectures:
+        - x86_64
+      Events:
+        HelloWorldPost:
+          Type: Api
+          Properties:
+            RestApiId: !Ref HelloWorldApi
+            Path: /hello
+            Method: post
+
 Outputs:
   HelloWorldApi:
     Description: "API Gateway endpoint URL for Prod stage for Hello World function"
@@ -38,3 +54,6 @@ Outputs:
   HelloWorldFunction:
     Description: "Hello World Lambda Function ARN"
     Value: !GetAtt HelloWorldFunction.Arn
+  HelloWorldPostFunction:
+    Description: "Hello World POST Lambda Function ARN"
+    Value: !GetAtt HelloWorldPostFunction.Arn
