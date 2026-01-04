@@ -12,7 +12,7 @@ export const lambdaHandler = async (event, context) => {
                     roles: ["admin", "developer"],
                     meta: {
                         lastLogin: "today",
-                        source: "CLI"
+                        source: "CLI" 
                     }
                 }
             }
