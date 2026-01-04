@@ -31,6 +31,22 @@ Resources:
             Path: /earth
             Method: get
 
+  HelloEarthPostFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: .
+      Handler: app.postHandler
+      Runtime: nodejs22.x
+      Architectures:
+        - x86_64
+      Events:
+        HelloEarthPost:
+          Type: Api
+          Properties:
+            RestApiId: !Ref HelloEarthApi
+            Path: /earth
+            Method: post
+
 Outputs:
   HelloEarthApi:
     Description: "API Gateway endpoint URL for Prod stage for Hello Earth function"

@@ -1,0 +1,9 @@
+{
+    "body": {
+        "mission": "Explore",
+        "target": "Mars"
+    },
+    "headers": {
+        "Content-Type": "application/json"
+    }
+}
