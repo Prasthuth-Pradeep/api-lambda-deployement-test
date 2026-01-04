@@ -1,4 +1,6 @@
 export const lambdaHandler = async (event, context) => {
+    console.log('New log added!', event);
+    console.log(event.headers)
     try {
         console.time("PerformanceCheck"); // Start timer
 
@@ -22,6 +24,9 @@ export const lambdaHandler = async (event, context) => {
 
         console.log("--- Stack Trace ---");
         console.trace("Where am I?"); // Show stack trace
+
+        console.log("Received Query Params:", event.queryStringParameters);
+        console.log("Received Path Parameters:", event.pathParameters);
 
         console.timeEnd("PerformanceCheck"); // End timer and print duration
 
@@ -51,11 +56,7 @@ export const lambdaHandler = async (event, context) => {
 export const postHandler = async (event, context) => {
     try {
         const body = JSON.parse(event.body);
-
-        console.log("Received POST request with body:", body);
-        console.log("Received Headers:", event.headers);
-        console.log("Lambda Context:", context);
-
+        console.log('New log added!', event)
         return {
             statusCode: 200,
             headers: {

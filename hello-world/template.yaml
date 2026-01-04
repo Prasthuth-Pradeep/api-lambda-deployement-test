@@ -28,7 +28,7 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref HelloWorldApi
-            Path: /hello
+            Path: /hello/{id}
             Method: get
 
   HelloWorldPostFunction:
