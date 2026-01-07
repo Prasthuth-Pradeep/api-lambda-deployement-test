@@ -47,6 +47,18 @@ Resources:
             Path: /earth
             Method: post
 
+  HelloEarthFunctionLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub "/aws/lambda/${HelloEarthFunction}"
+      RetentionInDays: 2
+
+  HelloEarthPostFunctionLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub "/aws/lambda/${HelloEarthPostFunction}"
+      RetentionInDays: 2
+
 Outputs:
   HelloEarthApi:
     Description: "API Gateway endpoint URL for Prod stage for Hello Earth function"
