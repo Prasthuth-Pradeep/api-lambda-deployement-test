@@ -1,0 +1,11 @@
+{
+    "body": {
+        "message": "hello earth"
+    },
+    "queryStringParameters": {
+        "foo": "bar"
+    },
+    "headers": {
+        "headerName": "headerValue"
+    }
+}

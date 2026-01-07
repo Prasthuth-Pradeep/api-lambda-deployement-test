@@ -31,6 +31,34 @@ Resources:
             Path: /earth
             Method: get
 
+  HelloEarthPostFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: .
+      Handler: app.postHandler
+      Runtime: nodejs22.x
+      Architectures:
+        - x86_64
+      Events:
+        HelloEarthPost:
+          Type: Api
+          Properties:
+            RestApiId: !Ref HelloEarthApi
+            Path: /earth
+            Method: post
+
+  HelloEarthFunctionLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub "/aws/lambda/${HelloEarthFunction}"
+      RetentionInDays: 2
+
+  HelloEarthPostFunctionLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub "/aws/lambda/${HelloEarthPostFunction}"
+      RetentionInDays: 2
+
 Outputs:
   HelloEarthApi:
     Description: "API Gateway endpoint URL for Prod stage for Hello Earth function"

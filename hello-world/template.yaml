@@ -28,8 +28,36 @@ Resources:
           Type: Api
           Properties:
             RestApiId: !Ref HelloWorldApi
-            Path: /hello
+            Path: /hello/{id}
             Method: get
+
+  HelloWorldPostFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: .
+      Handler: app.postHandler
+      Runtime: nodejs22.x
+      Architectures:
+        - x86_64
+      Events:
+        HelloWorldPost:
+          Type: Api
+          Properties:
+            RestApiId: !Ref HelloWorldApi
+            Path: /hello
+            Method: post
+
+  HelloWorldFunctionLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub "/aws/lambda/${HelloWorldFunction}"
+      RetentionInDays: 2
+
+  HelloWorldPostFunctionLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub "/aws/lambda/${HelloWorldPostFunction}"
+      RetentionInDays: 2
 
 Outputs:
   HelloWorldApi:
@@ -38,3 +66,6 @@ Outputs:
   HelloWorldFunction:
     Description: "Hello World Lambda Function ARN"
     Value: !GetAtt HelloWorldFunction.Arn
+  HelloWorldPostFunction:
+    Description: "Hello World POST Lambda Function ARN"
+    Value: !GetAtt HelloWorldPostFunction.Arn

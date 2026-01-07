@@ -10,5 +10,11 @@
     },
     "author": "SAM CLI",
     "license": "MIT",
+    "scripts": {
+        "generate-event": "node scripts/generate-event.js",
+        "test-local": "node scripts/test-runner.js",
+        "watch-local": "npx nodemon --watch app.js --watch events/event.json --exec \"npm run test-local\"",
+        "debug-local": "npm run generate-event && sam build && sam local invoke HelloWorldPostFunction -e events/proxy-event.json -d 5858"
+    },
     "dependencies": {}
 }
